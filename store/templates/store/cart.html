@@ -1,0 +1,55 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box-element">   <!--for styling the box-->
+            <a class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Continue Shopping</a>             <!-- &#x2190; it is a back arrow or left arrow emoje --> <!--btn btn-outline-dark: it gave black button if you point it out-->
+            <br>
+            <br>
+
+            <table class="table">
+                <tr> <!--row-->
+                    <th><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>   <!--col-->    <!-- order is from views and get_cart_items is method from models-->
+                    <th><h5>Total: <strong>${{order.get_cart_total|floatformat:2}}</strong></h5></th>                <!-- order is from views and get_cart_total is method from models-->
+                    <th>
+                        <a style="float:right;margin:5px" class="btn btn-success" href="{% url 'checkout' %}">checkout</a>    <!--button to link another page-->
+                    </th>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <br> <!--starting a new line without starting a new paragraph.-->
+
+        <div class="box-element">
+            <div class="cart-row">           <!--custom class. in main.css -->
+                <div style="flex:2"></div>        <!--the part of image-->    <!--flex is mean space-->
+                <div style="flex:2"><strong>Items</strong></div>
+                <div style="flex:1"><strong>Price</strong></div>
+                <div style="flex:1"><strong>Quantity</strong></div>
+                <div style="flex:1"><strong>Total</strong></div>
+            </div>
+
+            {% for item in items %}
+            <div class="cart-row">           
+                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>        <!--row-image: CSS class-->
+                <div style="flex:2">{{item.product.name}}</div>
+                <div style="flex:1">${{item.product.price|floatformat:2}}</div>
+                <div style="flex:1">
+                    <p class="quantity">{{item.quantity}}</p>   <!--quantity: CSS class-->
+                    <div class="quantity">
+                        <img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" src="{% static  'images/arrow-up.png' %}">
+                
+                        <img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
+                    </div>
+                </div>
+                <div style="flex:1">${{item.get_total}}</div>      <!-- get the number of total from method called get_total from models.py -->
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

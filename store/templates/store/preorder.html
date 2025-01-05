@@ -1,0 +1,58 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box-element">
+
+            <div><a class="btn btn-outline-dark" href="{% url 'user_account' %}">&#x2190; Back To Account</a></div>
+            <div>
+                <h4 class="log">Pre Order: {{orderid.transaction_id}}</h4>
+            </div>
+            <br>
+
+            <table class="table text-center">
+                <tr> <!--row-->
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <h5>Items: <strong>{{orderid.get_cart_items}}</strong></h5>
+                    </th>
+                    <th>
+                        <h5>Total: <strong>${{orderid.get_cart_total|floatformat:2}}</strong></h5>
+                    </th>
+                    <th></th>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <br> <!--starting a new line without starting a new paragraph.-->
+
+        <div class="box-element">
+            <div class="cart-row"> <!--custom class. in main.css -->
+                <div style="flex:2"></div> <!--the part of image--> <!--flex is mean space-->
+                <div style="flex:2"><strong>Items</strong></div>
+                <div style="flex:1"><strong>Price</strong></div>
+                <div style="flex:1"><strong>Quantity</strong></div>
+                <div style="flex:1"><strong>Total</strong></div>
+            </div>
+
+            {% for item in preord%}
+            <div class="cart-row">
+                <div style="flex:2"><img class="row-image" src="{{item.product.imageURL}}"></div>
+                <div style="flex:2">{{item.product.name}}</div>
+                <div style="flex:1">${{item.product.price|floatformat:2}}</div>
+                <div style="flex:1">
+                    <p class="quantity2">{{item.quantity}}</p> 
+                </div>
+                <div style="flex:1">${{item.get_total}}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

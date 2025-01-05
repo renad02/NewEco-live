@@ -1,0 +1,26 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+   <div class="row">
+      {% for product in products %}                                      <!-- products it's from views -->
+      <div class="col-lg-4">                                             <!-- lg Stands for "large" screen size. 4 Indicates that this column will take up 4 out of 12 available columns -->
+         <img class="thumbnail" src="{{product.imageURL}}">             <!-- class="thumbnail" -> It was used to style images or content with a border, padding, and a hover effect, making them look like image thumbnails or small content previews. -->
+         <div class="box-element product">                               <!-- this is not bootstrap class, this is my own class :) --> 
+            <h6><strong>{{product.name}}</strong></h6>
+            <hr>
+            <button  data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>      
+            <!-- btn: This is a Bootstrap class used to style elements as buttons. -->
+             <!--btn-outline-secondary: This is a specific Bootstrap button class that styles the button with an outline rather than a filled background.-->
+             <!--add-btn:  it might be used to style the button differently or trigger an action like adding an item to a cart in a shopping application.-->
+             <!-- class name (update-cart) in js -->
+             <!--data-product={{product.id}} data-action="add" all of this from html-->
+            <a class="btn btn-outline-success" href="{% url 'detials' id=product.id %}">View</a>
+            <h4 style="display: inline-block;float: right">${{product.price|floatformat:2}}</h4>    <!-- floatfield:2  ->> that formats the price to two decimal places. -->
+         </div>
+
+      </div>
+      {% endfor %}
+
+   </div>
+{% endblock content %}
+
