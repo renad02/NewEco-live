@@ -133,7 +133,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/images/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')  # this is for if i impoerted image by admin it will save in static file 
+MEDIA_ROOT = os.path.join(BASE_DIR, '/static/images')  # this is for if i impoerted image by admin it will save in static file 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
