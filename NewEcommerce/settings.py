@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_URL = '/images/'
+MEDIA_URL = '/static/images/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')  # this is for if i impoerted image by admin it will save in static file 
 
