@@ -1,5 +1,6 @@
 import json
 from .models import *
+from django.contrib.auth.models import User
 
 #The purpose of this function is to handle all the logic we created for our guest users order.
 def cookieCart(request):
@@ -98,3 +99,14 @@ def Orders(request):
 		customer = request.user.customer 
 		orders = Order.objects.filter(customer=customer, complete=True)
 	return orders
+
+
+def authenticate(email, password):
+	try:
+		user = User.objects.get(email=email)
+		if user.check_password(password):
+			return user
+		else:
+			return None
+	except User.DoesNotExist:
+		return None
