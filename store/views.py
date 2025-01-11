@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from django.contrib.auth import authenticate, login, logout   
+from django.contrib.auth import login, logout   
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegisterUserForm
 import json                             # it is defrent from JsonResponse
 import datetime
 from .models import * 
-from .utils import cookieCart, cartData, guestOrder, Orders
+from .utils import cookieCart, cartData, guestOrder, Orders, authenticate
 
 def store(request):
 
@@ -121,9 +121,9 @@ def login_user(request):
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 
 	if request.method =="POST":
-		username = request.POST["username"]
+		email = request.POST["email"]
 		password = request.POST["password"]
-		user = authenticate(request, username=username, password=password)
+		user = authenticate(email=email, password=password)
 		if user is not None:
 			login(request, user)
 			return redirect('store')
